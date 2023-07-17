@@ -29,7 +29,7 @@ function onSubmit(e) {
     // alert('Please enter all fields');
     msg.classList.add('error');
     msg.innerHTML = 'Please enter all fields';
-
+    
     // Remove error after 3 seconds
     setTimeout(() => msg.remove(), 3000);
   } else {
@@ -38,6 +38,12 @@ function onSubmit(e) {
 
     // Add text node with input values
     li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
+    var delet= document.createElement('button');
+    delet.className='btn btn-danger btn-sm float-right delete';
+    delet.appendChild(document.createTextNode('Delete'));
+    li.appendChild(delet);
+    userList.appendChild(li);
+
     localStorage.setItem('name',nameInput.value);
     localStorage.setItem('email',emailInput.value);
     // Add HTML
@@ -50,4 +56,11 @@ function onSubmit(e) {
     nameInput.value = '';
     emailInput.value = '';
   }
+}
+userList.addEventListener('click',removeItem);
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+            var li=e.target.parentElement;
+            userList.removeChild(li);
+    }
 }
